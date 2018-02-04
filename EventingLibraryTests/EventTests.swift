@@ -17,9 +17,9 @@ class EventingLibraryTests: XCTestCase {
         
         var actualValue: Int?
         
-        disposeBag += event.subscribe(on: { value in
+        disposeBag += event.subscribe { value in
             actualValue = value
-        })
+        }
         
         XCTAssertNil(actualValue)
         
@@ -28,5 +28,21 @@ class EventingLibraryTests: XCTestCase {
 
         event.on(3)
         XCTAssertEqual(3, actualValue)
+    }
+    
+    func test_singleEventSubscribesToOneAndOnlyOneEvent() {
+        let event = Event<Int>()
+        
+        var actualValue: Int?
+        
+        disposeBag += event.single { value in
+            actualValue = value
+        }
+        
+        event.on(42)
+        XCTAssertEqual(42, actualValue)
+        
+        event.on(3)
+        XCTAssertEqual(42, actualValue)
     }
 }

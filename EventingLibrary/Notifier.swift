@@ -26,6 +26,10 @@ public final class NotificationDisposable<T>: Disposable {
 public struct Notifier<T> {
     private let name: Notification.Name
     
+    public init(_ name: String) {
+        self.name = Notification.Name(rawValue: name)
+    }
+    
     public init(_ name: Notification.Name) {
         self.name = name
     }
