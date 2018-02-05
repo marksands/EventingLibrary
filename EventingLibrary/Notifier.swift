@@ -1,15 +1,15 @@
 import Foundation
 
-public final class NotificationDisposable<T>: Disposable {
-    private var handler: (T) -> ()
+public final class NotificationDisposable: Disposable {
+    private var handler: ([AnyHashable: Any]) -> ()
     private var notificationObserver: NSObjectProtocol?
     
-    internal init(name: Notification.Name, handler: @escaping (T) -> ()) {
+    internal init(name: Notification.Name, handler: @escaping ([AnyHashable: Any]) -> ()) {
         self.handler = handler
         
         notificationObserver = NotificationCenter.default.addObserver(forName: name, object: nil, queue: nil, using: { [weak self] notification in
-            if let object = notification.object, let value = object as? T {
-                self?.handler(value)
+            if let userInfo = notification.userInfo {
+                self?.handler(userInfo)
             }
         })
     }
@@ -23,7 +23,7 @@ public final class NotificationDisposable<T>: Disposable {
     }
 }
 
-public struct Notifier<T> {
+public struct Notifier {
     private let name: Notification.Name
     
     public init(_ name: String) {
@@ -34,11 +34,11 @@ public struct Notifier<T> {
         self.name = name
     }
     
-    public func subscribe(on handler: @escaping (T) -> ()) -> Disposable {
+    public func subscribe(on handler: @escaping ([AnyHashable: Any]) -> ()) -> Disposable {
         return NotificationDisposable(name: name, handler: handler)
     }
     
-    public func on(_ value: T) {
-        NotificationCenter.default.post(name: name, object: value)
+    public func on(_ value: [AnyHashable: Any]) {
+        NotificationCenter.default.post(name: name, object: nil, userInfo: value)
     }
 }

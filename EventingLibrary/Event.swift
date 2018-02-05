@@ -1,30 +1,34 @@
 import Foundation
 
 public final class Event<T>: Disposable {
-    private var subscribers: [Subscriber<T>] = []
-
+    private var subscribers: [AnySubscriber<T>] = []
+    
     public init() {
         
     }
     
     public func subscribe(on handler: @escaping (T) -> ()) -> Disposable {
         let subscriber = IndefiniteSubscriber(handler: handler)
-        subscribers.append(subscriber)
-        return self // TODO: I might need a SubscriptionDisposable that contains a weak reference to self
+        subscribers.append(subscriber.asSubscriber())
+        return self
     }
     
     public func single(_ handler: @escaping (T) -> ()) -> Disposable {
         let subscriber = SingleSubscriber(handler: handler)
-        subscribers.append(subscriber)
+        subscribers.append(subscriber.asSubscriber())
         return self
     }
     
     public func on(_ value: T) {
         subscribers.forEach { $0.handler(value) }
-        subscribers = subscribers.filter { ($0 as? SingleSubscriber) == nil }
+        purgeSingleSubscribers()
     }
         
     public func dispose() {
         subscribers.removeAll()
+    }
+    
+    private func purgeSingleSubscribers() {
+        subscribers = subscribers.filter { ($0.base as? SingleSubscriber<T>) == nil }
     }
 }

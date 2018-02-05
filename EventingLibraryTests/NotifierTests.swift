@@ -22,44 +22,44 @@ class NotifierTests: XCTestCase {
     func test_notifierSubscribesToStreamsOfValues() {
         let notificationName = Notification.Name("TestNotifier")
         
-        let event = Notifier<[String:Int]>(notificationName)
+        let event = Notifier(notificationName)
         
-        var actualValue: [String:Int] = [:]
+        var actualValue: Int?
         
         disposeBag += event.subscribe(on: { value in
-            actualValue = value
+            actualValue = value["Key"] as? Int
         })
         
-        XCTAssertEqual([:], actualValue)
+        XCTAssertNil(actualValue)
         
         event.on(["Key":3])
-        XCTAssertEqual(["Key":3], actualValue)
+        XCTAssertEqual(3, actualValue)
         
-        event.on(["AnotherKey":7])
-        XCTAssertEqual(["AnotherKey":7], actualValue)
+        event.on(["Key":7])
+        XCTAssertEqual(7, actualValue)
     }
     
     func test_notifierPostsAsNotificationCenter() {
         let notificationName = Notification.Name("TestNotifier2")
         
-        let event = Notifier<TestEnum>(notificationName)
+        let event = Notifier(notificationName)
         
         var actualValue = TestEnum.waiting
         
         disposeBag += event.subscribe(on: { _ in })
         
         NotificationCenter.default.addObserver(forName: notificationName, object: nil, queue: nil, using: { notification in
-            if let object = notification.object, let data = object as? TestEnum {
-                actualValue = data
+            if let userInfo = notification.userInfo, let value = userInfo["Enum"] as? TestEnum {
+                actualValue = value
             }
         })
         
         XCTAssertEqual(TestEnum.waiting, actualValue)
         
-        event.on(TestEnum.success1)
+        event.on(["Enum": TestEnum.success1])
         XCTAssertEqual(TestEnum.success1, actualValue)
         
-        event.on(TestEnum.success2)
+        event.on(["Enum": TestEnum.success2])
         XCTAssertEqual(TestEnum.success2, actualValue)
     }
 }

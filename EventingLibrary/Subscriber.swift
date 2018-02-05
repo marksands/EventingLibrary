@@ -1,15 +1,31 @@
-class Subscriber<T> {
-    var handler: (T) -> ()
+protocol Subscriber {
+    associatedtype Value
     
-    init(handler: @escaping (T) -> ()) {
-        self.handler = handler
+    var handler: (Value) -> () { get }
+}
+
+extension Subscriber {
+    func asSubscriber() -> AnySubscriber<Value> {
+        return AnySubscriber(self)
     }
 }
 
-class IndefiniteSubscriber<T>: Subscriber<T> {
-    
+struct IndefiniteSubscriber<T>: Subscriber {
+    typealias Value = T
+    let handler: (T) -> ()
 }
 
-class SingleSubscriber<T>: Subscriber<T> {
+struct SingleSubscriber<T>: Subscriber {
+    typealias Value = T
+    let handler: (T) -> ()
+}
+
+struct AnySubscriber<T> {
+    let handler: (T) -> ()
+    let base: Any
     
+    init<S: Subscriber>(_ subscriber: S) where S.Value == T {
+        self.handler = subscriber.handler
+        self.base = subscriber
+    }
 }
