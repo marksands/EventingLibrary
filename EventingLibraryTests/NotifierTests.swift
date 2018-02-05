@@ -40,7 +40,7 @@ class NotifierTests: XCTestCase {
     }
     
     func test_notifierPostsAsNotificationCenter() {
-        let notificationName = Notification.Name("TestNotifier2")
+        let notificationName = "TestNotifier2"
         
         let event = Notifier(notificationName)
         
@@ -48,7 +48,7 @@ class NotifierTests: XCTestCase {
         
         disposeBag += event.subscribe(on: { _ in })
         
-        NotificationCenter.default.addObserver(forName: notificationName, object: nil, queue: nil, using: { notification in
+        NotificationCenter.default.addObserver(forName: Notification.Name(notificationName), object: nil, queue: nil, using: { notification in
             if let userInfo = notification.userInfo, let value = userInfo["Enum"] as? TestEnum {
                 actualValue = value
             }

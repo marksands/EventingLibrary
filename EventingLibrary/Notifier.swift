@@ -1,15 +1,12 @@
 import Foundation
 
-public final class NotificationDisposable: Disposable {
-    private var handler: ([AnyHashable: Any]) -> ()
+private final class NotificationDisposable: Disposable {
     private var notificationObserver: NSObjectProtocol?
     
-    internal init(name: Notification.Name, handler: @escaping ([AnyHashable: Any]) -> ()) {
-        self.handler = handler
-        
-        notificationObserver = NotificationCenter.default.addObserver(forName: name, object: nil, queue: nil, using: { [weak self] notification in
+    init(name: Notification.Name, handler: @escaping ([AnyHashable: Any]) -> ()) {
+        notificationObserver = NotificationCenter.default.addObserver(forName: name, object: nil, queue: nil, using: { notification in
             if let userInfo = notification.userInfo {
-                self?.handler(userInfo)
+                handler(userInfo)
             }
         })
     }

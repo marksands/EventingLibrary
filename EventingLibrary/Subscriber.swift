@@ -12,11 +12,13 @@ extension Subscriber {
 
 struct IndefiniteSubscriber<T>: Subscriber {
     typealias Value = T
+    
     let handler: (T) -> ()
 }
 
 struct SingleSubscriber<T>: Subscriber {
     typealias Value = T
+    
     let handler: (T) -> ()
 }
 
