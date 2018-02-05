@@ -41,3 +41,10 @@ disposeBag += event.subscribe(on: { userInfo in
     print("Got view state: \(state)!")
 })
 ```
+
+## FAQ
+
+* Should I use this?
+
+Probably not.
+
