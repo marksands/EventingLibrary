@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name             = "RxSugar"
+  s.name             = "EventingLibrary"
   s.version          = "0.0.1"
   s.summary          = "Lightweight observable framework"
   s.description      = <<-DESC
