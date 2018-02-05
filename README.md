@@ -44,7 +44,7 @@ disposeBag += event.subscribe(on: { userInfo in
 
 ## FAQ
 
-* Should I use this?
+Should I use this?
 
-Probably not.
+* Probably not.
 
