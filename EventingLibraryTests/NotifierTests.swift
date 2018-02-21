@@ -62,4 +62,58 @@ class NotifierTests: XCTestCase {
         event.on(["Enum": TestEnum.success2])
         XCTAssertEqual(TestEnum.success2, actualValue)
     }
+    
+    func test_notifierSubscribesToNotificationsWhenUserInfoIsNil() {
+        let notificationName = Notification.Name("TestNotifier")
+        let event = Notifier(notificationName)
+        
+        var observeCount = 0
+        
+        disposeBag += event.subscribe { _ in
+            observeCount += 1
+        }
+        
+        NotificationCenter.default.post(name: notificationName, object: nil)
+        
+        XCTAssertEqual(1, observeCount)
+    }
+    
+    func test_notifierCanSubscribeToNotificationObject() {
+        let notificationName = Notification.Name("TestNotifier")
+        let event = Notifier(notificationName)
+        
+        var notification: Notification?
+        
+        disposeBag += event.subscribe(target: self) {
+            notification = $0
+        }
+        
+        NotificationCenter.default.post(name: notificationName, object: self)
+        
+        XCTAssertNotNil(notification)
+        XCTAssertEqual(self, notification?.object as? NotifierTests)
+    }
+    
+    func test_notifierRequiresDisposeBagToRetainObserver() {
+        let notificationName = Notification.Name("TestNotifier")
+        let event = Notifier(notificationName)
+        
+        var observeCount = 0
+        var observeCountWithDisposable = 0
+
+        autoreleasepool {
+            _ = event.subscribe { value in
+                observeCount += 1
+            }
+
+            disposeBag += event.subscribe { _ in
+                observeCountWithDisposable += 1
+            }
+        }
+        
+        NotificationCenter.default.post(name: notificationName, object: nil, userInfo: [:])
+        
+        XCTAssertEqual(0, observeCount)
+        XCTAssertEqual(1, observeCountWithDisposable)
+    }
 }

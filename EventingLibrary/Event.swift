@@ -7,12 +7,14 @@ public final class Event<T>: Disposable {
         
     }
     
+    @discardableResult
     public func subscribe(on handler: @escaping (T) -> ()) -> Disposable {
         let subscriber = IndefiniteSubscriber(handler: handler)
         subscribers.append(subscriber.asSubscriber())
         return self
     }
     
+    @discardableResult
     public func single(_ handler: @escaping (T) -> ()) -> Disposable {
         let subscriber = SingleSubscriber(handler: handler)
         subscribers.append(subscriber.asSubscriber())

@@ -45,4 +45,24 @@ class EventingLibraryTests: XCTestCase {
         event.on(3)
         XCTAssertEqual(42, actualValue)
     }
+    
+    func test_subscribeAndSingleDoNotRequireDisposable() {
+        let event = Event<String>()
+        
+        var observedCount = 0
+
+        event.subscribe { _ in
+            observedCount += 1
+        }
+
+        event.single { _ in
+            observedCount += 1
+        }
+        
+        event.on("SingleAndSubscribe")
+        XCTAssertEqual(2, observedCount)
+
+        event.on("SingleIsDisposedImplicitly")
+        XCTAssertEqual(3, observedCount)
+    }
 }
