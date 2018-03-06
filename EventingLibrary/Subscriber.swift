@@ -1,33 +1,16 @@
-protocol Subscriber {
-    associatedtype Value
+class SubscriberBase<T>: Disposable {
+    var handler: (T) -> ()
+    var isDisposed = false
     
-    var handler: (Value) -> () { get }
-}
-
-extension Subscriber {
-    func asSubscriber() -> AnySubscriber<Value> {
-        return AnySubscriber(self)
+    init(handler: @escaping (T) -> ()) {
+        self.handler = handler
     }
-}
-
-struct IndefiniteSubscriber<T>: Subscriber {
-    typealias Value = T
     
-    let handler: (T) -> ()
-}
-
-struct SingleSubscriber<T>: Subscriber {
-    typealias Value = T
+    func on(_ value: T) {
+        fatalError()
+    }
     
-    let handler: (T) -> ()
-}
-
-struct AnySubscriber<T> {
-    let handler: (T) -> ()
-    let base: Any
-    
-    init<S: Subscriber>(_ subscriber: S) where S.Value == T {
-        self.handler = subscriber.handler
-        self.base = subscriber
+    func dispose() {
+        isDisposed = true
     }
 }

@@ -67,4 +67,38 @@ class DisposableTests: XCTestCase {
         XCTAssertEqual(42, actualIntValue)
         XCTAssertEqual("42", actualStringValue)
     }
+    
+    func test_disposeCancellsOnlyReferencedSubscriptions() {
+        let event = Event<Int>()
+        let disposeBag = DisposeBag()
+
+        var observedValue1: Int?
+        var observedValue2: Int?
+        var observedValue3: Int?
+
+        disposeBag += event.subscribe(on: { value in
+            observedValue1 = value
+        })
+        
+        disposeBag += event.subscribe(on: { value in
+            observedValue2 = value
+        })
+
+        event.subscribe(on: { value in
+            observedValue3 = value
+        })
+
+        event.on(2)
+        XCTAssertEqual(2, observedValue1)
+        XCTAssertEqual(2, observedValue2)
+        XCTAssertEqual(2, observedValue3)
+
+        disposeBag.dispose()
+
+        event.on(3)
+        XCTAssertEqual(2, observedValue1)
+        XCTAssertEqual(2, observedValue2)
+        XCTAssertEqual(3, observedValue3)
+    }
 }
+
