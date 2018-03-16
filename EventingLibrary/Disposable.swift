@@ -17,6 +17,10 @@ public final class DisposeBag: Disposable {
         disposables.forEach { $0.dispose() }
         disposables.removeAll()
     }
+    
+    deinit {
+        dispose()
+    }
 }
 
 public func += (disposeBag: DisposeBag, disposable: Disposable) {

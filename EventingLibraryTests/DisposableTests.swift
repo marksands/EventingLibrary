@@ -100,5 +100,23 @@ class DisposableTests: XCTestCase {
         XCTAssertEqual(2, observedValue2)
         XCTAssertEqual(3, observedValue3)
     }
-}
+    
+    func test_disposesOnDeinit() {
+        let event = Event<Int>()
+        var disposeBag = DisposeBag()
+        
+        var observedValue: Int?
+        
+        disposeBag += event.subscribe(on: { value in
+            observedValue = value
+        })
+        
+        event.on(1)
+        XCTAssertEqual(1, observedValue)
 
+        disposeBag = DisposeBag()
+        
+        event.on(2)
+        XCTAssertEqual(1, observedValue)
+    }
+}

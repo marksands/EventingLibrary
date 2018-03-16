@@ -1,14 +1,6 @@
 import XCTest
 import EventingLibrary
 
-class TestClass {
-    var value: Int
-    
-    init(value: Int) {
-        self.value = value
-    }
-}
-
 class EventingLibraryTests: XCTestCase {
     let disposeBag = DisposeBag()
 
