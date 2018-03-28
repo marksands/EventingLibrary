@@ -1,13 +1,9 @@
 import Foundation
 
-public class Observable<T> {
+public class Observable<T>: Disposable {
     fileprivate var subscribers: [SubscriberBase<T>] = []
     
     public init() {}
-    
-    deinit {
-        dispose()
-    }
     
     public func dispose() {
         subscribers.removeAll()
@@ -44,7 +40,7 @@ extension Observable where T: Equatable {
     }
 }
 
-public final class Event<T>:  Observable<T>, Disposable  {
+public final class Event<T>:  Observable<T>  {
     override public init() {}
     
     public func on(_ value: T) {
