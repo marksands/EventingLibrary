@@ -1,10 +1,16 @@
 import Foundation
 
-public final class Event<T>: Disposable {
-    private var subscribers: [SubscriberBase<T>] = []
+public class Observable<T> {
+    fileprivate var subscribers: [SubscriberBase<T>] = []
     
-    public init() {
-        
+    public init() {}
+    
+    deinit {
+        dispose()
+    }
+    
+    public func dispose() {
+        subscribers.removeAll()
     }
     
     @discardableResult
@@ -27,26 +33,26 @@ public final class Event<T>: Disposable {
         subscribers.append(subscriber)
         return subscriber
     }
-
-    public func on(_ value: T) {
-        subscribers.forEach { $0.on(value) }
-        cleanupDisposed()
-    }
-        
-    public func dispose() {
-        subscribers.removeAll()
-    }
-    
-    private func cleanupDisposed() {
-        subscribers = subscribers.filter { !$0.isDisposed }
-    }
 }
 
-extension Event where T: Equatable {
+extension Observable where T: Equatable {
     @discardableResult
     public func subscribeDistinct(on handler: @escaping (T) -> ()) -> Disposable {
         let subscriber = DistinctSubscriber(handler: handler, distinctHandler: ==)
         subscribers.append(subscriber)
         return subscriber
+    }
+}
+
+public final class Event<T>:  Observable<T>, Disposable  {
+    override public init() {}
+    
+    public func on(_ value: T) {
+        subscribers.forEach { $0.on(value) }
+        cleanupDisposed()
+    }
+    
+    private func cleanupDisposed() {
+        subscribers = subscribers.filter { !$0.isDisposed }
     }
 }
