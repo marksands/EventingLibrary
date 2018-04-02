@@ -181,4 +181,50 @@ class ObservableTests: XCTestCase {
         event.on(7)
         XCTAssertEqual(7, actualValue)
     }
+    
+    func test_combineFilterMap() {
+        struct AuthenticationCredentials {
+            let email: String
+            let password: String
+            
+            init(email: String, password: String) {
+                self.email = email
+                self.password = password
+            }
+        }
+        
+        func isValidEmail(_ email: String) -> Bool {
+            return email.count > 0
+        }
+        
+        func isValidPassword(_ password: String) -> Bool {
+            return password.count >= 8 &&
+                password.rangeOfCharacter(from: CharacterSet.decimalDigits) != nil
+        }
+        
+        let emailEvent = Event<String>()
+        let passwordEvent = Event<String>()
+        
+        let validAuthCredentials = Observable<AuthenticationCredentials>
+            .combine(
+                emailEvent.filter(isValidEmail),
+                passwordEvent.filter(isValidPassword)
+            ).map(AuthenticationCredentials.init)
+
+        var credentials: AuthenticationCredentials?
+        validAuthCredentials.subscribe {
+            credentials = $0
+        }
+        
+        emailEvent.on("")
+        passwordEvent.on("1234567")
+        XCTAssertNil(credentials)
+        
+        emailEvent.on("han.solo@falconware.net")
+        XCTAssertNil(credentials)
+        
+        passwordEvent.on("chewb4cca")
+        XCTAssertEqual("han.solo@falconware.net", credentials?.email)
+        XCTAssertEqual("chewb4cca", credentials?.password)
+    }
 }

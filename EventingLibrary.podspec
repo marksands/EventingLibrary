@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "EventingLibrary"
-  s.version          = "0.0.6"
+  s.version          = "0.1.0"
   s.summary          = "Lightweight observable framework"
   s.description      = <<-DESC
     Rx Training wheels.
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/marksands/EventingLibrary"
   s.license          = 'MIT'
   s.author           = { "Mark Sands" => "marksands07@gmail.com" }
-  s.source           = { :git => "https://github.com/marksands/EventingLibrary.git", :tag => "v0.0.6" }
+  s.source           = { :git => "https://github.com/marksands/EventingLibrary.git", :tag => "v0.1.0" }
   s.requires_arc     = true
 
   s.ios.deployment_target = "8.0"
