@@ -18,6 +18,12 @@
 		B1507A602026C918000AD2D0 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = B1507A5F2026C918000AD2D0 /* LICENSE.md */; };
 		B1507A6220275ADF000AD2D0 /* Subscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1507A6120275ADF000AD2D0 /* Subscriber.swift */; };
 		B16CC9252051EA47008410F0 /* DistinctSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16CC9242051EA47008410F0 /* DistinctSubscriber.swift */; };
+		B17E03C52072A3A000C6B1E7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E03C42072A3A000C6B1E7 /* Observable.swift */; };
+		B17E03C72072A58400C6B1E7 /* ObservableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E03C62072A58400C6B1E7 /* ObservableTests.swift */; };
+		B17E03CA2072A74100C6B1E7 /* Observable+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E03C92072A74100C6B1E7 /* Observable+Map.swift */; };
+		B17E03CC2072A74700C6B1E7 /* Observable+Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E03CB2072A74700C6B1E7 /* Observable+Merge.swift */; };
+		B17E03CE2072A74D00C6B1E7 /* Observable+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E03CD2072A74D00C6B1E7 /* Observable+Combine.swift */; };
+		B17E03D12072BB5A00C6B1E7 /* Observable+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E03D02072BB5A00C6B1E7 /* Observable+Filter.swift */; };
 		B187DAAE204E319D00F1E240 /* IndefiniteSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B187DAAD204E319D00F1E240 /* IndefiniteSubscriber.swift */; };
 		B187DAB0204E31AD00F1E240 /* SingleSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B187DAAF204E31AD00F1E240 /* SingleSubscriber.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +54,12 @@
 		B1507A5F2026C918000AD2D0 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		B1507A6120275ADF000AD2D0 /* Subscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscriber.swift; sourceTree = "<group>"; };
 		B16CC9242051EA47008410F0 /* DistinctSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistinctSubscriber.swift; sourceTree = "<group>"; };
+		B17E03C42072A3A000C6B1E7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		B17E03C62072A58400C6B1E7 /* ObservableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableTests.swift; sourceTree = "<group>"; };
+		B17E03C92072A74100C6B1E7 /* Observable+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Map.swift"; sourceTree = "<group>"; };
+		B17E03CB2072A74700C6B1E7 /* Observable+Merge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Merge.swift"; sourceTree = "<group>"; };
+		B17E03CD2072A74D00C6B1E7 /* Observable+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Combine.swift"; sourceTree = "<group>"; };
+		B17E03D02072BB5A00C6B1E7 /* Observable+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Filter.swift"; sourceTree = "<group>"; };
 		B187DAAD204E319D00F1E240 /* IndefiniteSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndefiniteSubscriber.swift; sourceTree = "<group>"; };
 		B187DAAF204E31AD00F1E240 /* SingleSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSubscriber.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +111,8 @@
 				B1507A582026C02F000AD2D0 /* Disposable.swift */,
 				B1507A6120275ADF000AD2D0 /* Subscriber.swift */,
 				B187DAAA204E317100F1E240 /* Subscribers */,
+				B17E03C42072A3A000C6B1E7 /* Observable.swift */,
+				B17E03C82072A73300C6B1E7 /* Observable */,
 				B1507A522026B132000AD2D0 /* Event.swift */,
 				B1507A562026BE64000AD2D0 /* Notifier.swift */,
 			);
@@ -109,11 +123,23 @@
 			isa = PBXGroup;
 			children = (
 				B1507A462026ABC8000AD2D0 /* EventTests.swift */,
+				B17E03C62072A58400C6B1E7 /* ObservableTests.swift */,
 				B1507A5C2026C34E000AD2D0 /* NotifierTests.swift */,
 				B1507A5A2026C1F2000AD2D0 /* DisposableTests.swift */,
 				B1507A482026ABC8000AD2D0 /* Info.plist */,
 			);
 			path = EventingLibraryTests;
+			sourceTree = "<group>";
+		};
+		B17E03C82072A73300C6B1E7 /* Observable */ = {
+			isa = PBXGroup;
+			children = (
+				B17E03CD2072A74D00C6B1E7 /* Observable+Combine.swift */,
+				B17E03D02072BB5A00C6B1E7 /* Observable+Filter.swift */,
+				B17E03C92072A74100C6B1E7 /* Observable+Map.swift */,
+				B17E03CB2072A74700C6B1E7 /* Observable+Merge.swift */,
+			);
+			name = Observable;
 			sourceTree = "<group>";
 		};
 		B187DAAA204E317100F1E240 /* Subscribers */ = {
@@ -238,12 +264,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B17E03D12072BB5A00C6B1E7 /* Observable+Filter.swift in Sources */,
+				B17E03C52072A3A000C6B1E7 /* Observable.swift in Sources */,
 				B1507A532026B132000AD2D0 /* Event.swift in Sources */,
 				B187DAAE204E319D00F1E240 /* IndefiniteSubscriber.swift in Sources */,
 				B1507A592026C02F000AD2D0 /* Disposable.swift in Sources */,
 				B16CC9252051EA47008410F0 /* DistinctSubscriber.swift in Sources */,
+				B17E03CE2072A74D00C6B1E7 /* Observable+Combine.swift in Sources */,
+				B17E03CC2072A74700C6B1E7 /* Observable+Merge.swift in Sources */,
 				B1507A572026BE64000AD2D0 /* Notifier.swift in Sources */,
 				B187DAB0204E31AD00F1E240 /* SingleSubscriber.swift in Sources */,
+				B17E03CA2072A74100C6B1E7 /* Observable+Map.swift in Sources */,
 				B1507A6220275ADF000AD2D0 /* Subscriber.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B17E03C72072A58400C6B1E7 /* ObservableTests.swift in Sources */,
 				B1507A5D2026C34E000AD2D0 /* NotifierTests.swift in Sources */,
 				B1507A472026ABC8000AD2D0 /* EventTests.swift in Sources */,
 				B1507A5B2026C1F2000AD2D0 /* DisposableTests.swift in Sources */,
