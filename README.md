@@ -37,6 +37,11 @@ disposeBag += event.subscribe(on: { value in
 // Send an event to all subscribers
 event.on(3)
 
+// Subscribe to streams with the side effect of consuming the previously sent value
+disposeBag += event.subscribeWithCurrentValue { value in
+    // value is 3 on subscription
+}
+
 // optionally dispose the stream
 disposeBag.dispose()
 ```
@@ -102,7 +107,7 @@ import EventingLibrary
 let event1 = Event<Int>()
 let event2 = Event<Int>()
 
-let mergedIntsEvent: Event<String> = Observable.merge(event1, event2)
+let mergedIntsEvent: Event<Int> = Observable.merge(event1, event2)
 ```
 
 ### Combine
