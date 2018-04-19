@@ -109,4 +109,23 @@ class EventingLibraryTests: XCTestCase {
         event.on(1)
         XCTAssertEqual(5, observedCount)
     }
+    
+    func test_subscribersCanReceivePreviouslySentValue() {
+        let event = Event<Int>()
+        
+        event.on(3)
+        event.on(2)
+        event.on(1)
+        
+        var observedValue = 0
+        
+        event.subscribeWithCurrentValue(on: {
+            observedValue = $0
+        })
+        
+        XCTAssertEqual(1, observedValue)
+        
+        event.on(2)
+        XCTAssertEqual(2, observedValue)
+    }
 }

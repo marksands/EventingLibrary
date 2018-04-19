@@ -26,6 +26,7 @@
 		B17E03D12072BB5A00C6B1E7 /* Observable+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E03D02072BB5A00C6B1E7 /* Observable+Filter.swift */; };
 		B187DAAE204E319D00F1E240 /* IndefiniteSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B187DAAD204E319D00F1E240 /* IndefiniteSubscriber.swift */; };
 		B187DAB0204E31AD00F1E240 /* SingleSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B187DAAF204E31AD00F1E240 /* SingleSubscriber.swift */; };
+		B1E49C9720893B33005BE45A /* ColdSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E49C9620893B33005BE45A /* ColdSubscriber.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		B17E03D02072BB5A00C6B1E7 /* Observable+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Filter.swift"; sourceTree = "<group>"; };
 		B187DAAD204E319D00F1E240 /* IndefiniteSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndefiniteSubscriber.swift; sourceTree = "<group>"; };
 		B187DAAF204E31AD00F1E240 /* SingleSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSubscriber.swift; sourceTree = "<group>"; };
+		B1E49C9620893B33005BE45A /* ColdSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColdSubscriber.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 				B187DAAD204E319D00F1E240 /* IndefiniteSubscriber.swift */,
 				B187DAAF204E31AD00F1E240 /* SingleSubscriber.swift */,
 				B16CC9242051EA47008410F0 /* DistinctSubscriber.swift */,
+				B1E49C9620893B33005BE45A /* ColdSubscriber.swift */,
 			);
 			name = Subscribers;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				B1507A592026C02F000AD2D0 /* Disposable.swift in Sources */,
 				B16CC9252051EA47008410F0 /* DistinctSubscriber.swift in Sources */,
 				B17E03CE2072A74D00C6B1E7 /* Observable+Combine.swift in Sources */,
+				B1E49C9720893B33005BE45A /* ColdSubscriber.swift in Sources */,
 				B17E03CC2072A74700C6B1E7 /* Observable+Merge.swift in Sources */,
 				B1507A572026BE64000AD2D0 /* Notifier.swift in Sources */,
 				B187DAB0204E31AD00F1E240 /* SingleSubscriber.swift in Sources */,

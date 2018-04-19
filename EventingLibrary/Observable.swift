@@ -32,6 +32,13 @@ public class Observable<T> {
         subscribers.append(subscriber)
         return subscriber
     }
+    
+    @discardableResult
+    public func subscribeWithCurrentValue(on handler: @escaping (T) -> ()) -> Disposable {
+        let subscriber = ColdSubscriber(handler: handler, currentValue: _value)
+        subscribers.append(subscriber)
+        return subscriber
+    }
 }
 
 extension Observable where T: Equatable {
