@@ -128,4 +128,42 @@ class EventingLibraryTests: XCTestCase {
         event.on(2)
         XCTAssertEqual(2, observedValue)
     }
+    
+    func test_subscribersCanReceivePreviouslySentValueAfterMapping() {
+        let event = Event<Int>()
+        
+        event.on(3)
+        event.on(2)
+        event.on(1)
+        
+        var observedValue = "0"
+        
+        event.map(String.init).subscribeWithCurrentValue(on: {
+            observedValue = $0
+        })
+        
+        XCTAssertEqual("1", observedValue)
+        
+        event.on(2)
+        XCTAssertEqual("2", observedValue)
+    }
+    
+    func test_observablesCreatedWithStaticHelperCreatesSingleEvent() {
+        let observable = Observable<Int>.create { event in
+            event.on(3)
+            return DisposableAction { }
+        }
+
+        var actualValue: Int?
+
+        observable.subscribe {
+            actualValue = $0
+        }
+        XCTAssertNil(actualValue)
+
+        observable.subscribeWithCurrentValue {
+            actualValue = $0
+        }
+        XCTAssertEqual(3, actualValue)
+    }
 }

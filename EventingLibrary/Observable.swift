@@ -49,3 +49,11 @@ extension Observable where T: Equatable {
         return subscriber
     }
 }
+
+extension Observable {
+    public static func create(_ fn: @escaping (Event<T>) -> (DisposableAction)) -> Observable<T> {
+        let event = Event<T>()
+        event.subscribers.append(CleanupSubscriber(fn(event)))
+        return event
+    }
+}

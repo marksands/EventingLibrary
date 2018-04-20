@@ -119,4 +119,12 @@ class DisposableTests: XCTestCase {
         event.on(2)
         XCTAssertEqual(1, observedValue)
     }
+    
+    func test_disposableActionCalledOnDispose() {
+        // TODO
+    }
+    
+    func test_observableCreateDisposesWithDisposeAction() {
+        // TODO
+    }
 }
