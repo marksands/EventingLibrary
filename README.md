@@ -97,6 +97,35 @@ let event = Event<Int>()
 let intToStringEvent: Event<String> = event.map { String($0) }
 ```
 
+### FlatMap
+
+Transform the values sent by an Event by applying a function that returns an Observable that itself emits items.
+
+```swift
+import EventingLibrary
+
+// Service layer
+func authenticateUser(withCredentials credentials: AuthCredentials) -> Observable<User> {
+    return Observable<User>.create { event in
+        let task = URLSession.shared.dataTask(with: url(from: credentials), completionHandler: { data, _, _ in
+            event.on(User(data: data))
+        })
+        task.resume()
+        
+        return DisposableAction {
+            task.cancel()
+        }
+    }
+}
+
+// Call site
+loginCredentials
+    .flatMap { authenticateUser(withCredentials: $0) }
+    .subscribe { user in
+        print("Got authenticated user: \(user)!")
+}
+```
+
 ### Merge
 
 Combine multiple events into a single event by merging their emitted values.

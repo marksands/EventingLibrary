@@ -21,7 +21,7 @@ public class Observable<T> {
     
     @discardableResult
     public func single(_ handler: @escaping (T) -> ()) -> Disposable {
-        let subscriber = SingleSubscriber(handler: handler)
+        let subscriber = SingleSubscriber(handler: handler, currentValue: nil)
         subscribers.append(subscriber)
         return subscriber
     }
@@ -36,6 +36,13 @@ public class Observable<T> {
     @discardableResult
     public func subscribeWithCurrentValue(on handler: @escaping (T) -> ()) -> Disposable {
         let subscriber = ColdSubscriber(handler: handler, currentValue: _value)
+        subscribers.append(subscriber)
+        return subscriber
+    }
+    
+    @discardableResult
+    public func singleWithCurrentValue(on handler: @escaping (T) -> ()) -> Disposable {
+        let subscriber = SingleSubscriber(handler: handler, currentValue: _value)
         subscribers.append(subscriber)
         return subscriber
     }

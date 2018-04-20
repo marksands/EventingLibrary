@@ -41,6 +41,96 @@ class ObservableTests: XCTestCase {
         XCTAssertEqual("3", actualValue)
     }
     
+    func test_observableMap_withCurrentValue() {
+        let event = Event<Int>()
+        
+        var actualValue: String?
+        
+        event.on(1)
+
+        event
+            .map { String($0) }
+            .subscribeWithCurrentValue {
+                actualValue = $0
+        }
+        
+        XCTAssertEqual("1", actualValue)
+        
+        event.on(2)
+        XCTAssertEqual("2", actualValue)
+    }
+    
+    func test_observableFlatMap() {
+        let expectation = self.expectation(description: #function)
+        let event = Event<Int>()
+        
+        func generateEvent(_ value: Int) -> Event<String> {
+            let event = Event<String>()
+            DispatchQueue.main.async {
+                event.on(String(value))
+            }
+            return event
+        }
+        
+        var actualValue: String?
+        
+        event.flatMap {
+            generateEvent($0)
+        }.subscribe {
+            actualValue = $0
+            expectation.fulfill()
+        }
+        
+        XCTAssertNil(actualValue)
+        
+        event.on(1)
+        waitForExpectations(timeout: 1)
+        XCTAssertEqual("1", actualValue)
+    }
+    
+    func test_observableFlatMapInternallyUsesColdSignalsWithColdSingle() {
+        let event = Event<Int>()
+        let event2 = Event<String>()
+        
+        var actualValue: String?
+        var observedCount = 0
+        
+        event.flatMap { _ in
+            event2
+        }.subscribe {
+            actualValue = $0
+            observedCount += 1
+        }
+
+        event.on(1)
+        XCTAssertNil(actualValue)
+        XCTAssertEqual(0, observedCount)
+
+        event2.on("1")
+        XCTAssertEqual("1", actualValue)
+        XCTAssertEqual(1, observedCount)
+        
+        // event2's current value is still "1" and event triggers subscription
+        event.on(2)
+        XCTAssertEqual("1", actualValue)
+        XCTAssertEqual(2, observedCount)
+
+        // event2's ColdSingle is disposed, so this event goes unnoticed to the subscription
+        event2.on("2")
+        XCTAssertEqual("1", actualValue)
+        XCTAssertEqual(2, observedCount)
+
+        // event3 triggers the single event, using event2's current value and triggers the subscription
+        event.on(3)
+        XCTAssertEqual("2", actualValue)
+        XCTAssertEqual(3, observedCount)
+
+        // event2's ColdSingle is disposed, so this event goes unnoticed
+        event2.on("3")
+        XCTAssertEqual("2", actualValue)
+        XCTAssertEqual(3, observedCount)
+    }
+    
     func test_observableMerge() {
         let event1 = Event<Int>()
         let event2 = Event<Int>()
@@ -226,5 +316,24 @@ class ObservableTests: XCTestCase {
         passwordEvent.on("chewb4cca")
         XCTAssertEqual("han.solo@falconware.net", credentials?.email)
         XCTAssertEqual("chewb4cca", credentials?.password)
+        
+        struct User {}
+        
+        func authenticate(_ auth: AuthenticationCredentials) -> Observable<User> {
+            let event = Event<User>()
+            // perform login network request, for example
+            event.on(User())
+            return event
+        }
+        
+        var actualUser: User?
+        
+        validAuthCredentials
+            .flatMap { authenticate($0) }
+            .subscribeWithCurrentValue {
+                actualUser = $0
+            }
+        
+        XCTAssertNotNil(actualUser)
     }
 }
