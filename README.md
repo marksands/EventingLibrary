@@ -21,7 +21,7 @@ public protocol Tappable {
 
 ## Event
 
-`Event`s can subscribe to other `Event`s and `Observable`s as well as send values. Because `Event`s are `Observable`s, they can both send and recive values.
+`Event`s can subscribe to other `Event`s and `Observable`s as well as send values. Because `Event`s are `Observable`s, they can both send and receive values.
 
 ```swift
 import EventingLibrary
