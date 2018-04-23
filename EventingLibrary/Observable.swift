@@ -9,6 +9,7 @@ public class Observable<T> {
     public init() { }
 
     deinit {
+        subscribers.forEach { $0.dispose() }
         subscribers.removeAll()
     }
     

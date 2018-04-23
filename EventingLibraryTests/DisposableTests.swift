@@ -120,6 +120,27 @@ class DisposableTests: XCTestCase {
         XCTAssertEqual(1, observedValue)
     }
     
+    func test_disposablesDontRetainEventsLongerThanNecessary() {
+        weak var weakEvent: Event<Int>?
+        var disposable: Disposable?
+
+        var actualValue = 0
+
+        autoreleasepool {
+            let event = Event<Int>()
+            disposable = event.subscribe { value in
+                actualValue = value
+            }
+            
+            weakEvent = event
+        }
+        
+        XCTAssertTrue(disposable?.isDisposed ?? false)
+
+        weakEvent?.on(42)
+        XCTAssertEqual(0, actualValue)
+    }
+    
     func test_disposableActionCalledOnDispose() {
         // TODO
     }
