@@ -94,26 +94,53 @@ class NotifierTests: XCTestCase {
         XCTAssertEqual(self, notification?.object as? NotifierTests)
     }
     
-    func test_notifierRequiresDisposeBagToRetainObserver() {
+    func test_notifierDoesNotRequireDisposeBagToRetainObserver() {
         let notificationName = Notification.Name("TestNotifier")
-        let event = Notifier(notificationName)
+        var event: Notifier? = Notifier(notificationName)
         
         var observeCount = 0
         var observeCountWithDisposable = 0
 
         autoreleasepool {
-            _ = event.subscribe { value in
+            event?.subscribe { value in
                 observeCount += 1
             }
 
-            disposeBag += event.subscribe { _ in
+            disposeBag += event!.subscribe { _ in
                 observeCountWithDisposable += 1
             }
         }
         
         NotificationCenter.default.post(name: notificationName, object: nil, userInfo: [:])
         
-        XCTAssertEqual(0, observeCount)
+        XCTAssertEqual(1, observeCount)
         XCTAssertEqual(1, observeCountWithDisposable)
+        
+        disposeBag.dispose()
+        NotificationCenter.default.post(name: notificationName, object: nil, userInfo: [:])
+        
+        XCTAssertEqual(2, observeCount)
+        XCTAssertEqual(1, observeCountWithDisposable)
+        
+        event = nil
+        NotificationCenter.default.post(name: notificationName, object: nil, userInfo: [:])
+        
+        XCTAssertEqual(2, observeCount)
+        XCTAssertEqual(1, observeCountWithDisposable)
+    }
+    
+    func test_canDisposeNotifications() {
+        let notificationName = Notification.Name("TestNotifier")
+        let event = Notifier(notificationName)
+        
+        var observeCount = 0
+        disposeBag += event.subscribe { _ in
+            observeCount += 1
+        }
+        
+        disposeBag.dispose()
+        NotificationCenter.default.post(name: notificationName, object: nil, userInfo: [:])
+        
+        XCTAssertEqual(0, observeCount)
     }
 }

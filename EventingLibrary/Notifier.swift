@@ -25,8 +25,9 @@ private final class NotificationDisposable: Disposable {
     }
 }
 
-public struct Notifier {
+public class Notifier {
     private let name: Notification.Name
+    private var subscribers: [NotificationDisposable] = []
     
     public init(_ name: String) {
         self.name = Notification.Name(rawValue: name)
@@ -36,12 +37,18 @@ public struct Notifier {
         self.name = name
     }
     
+    @discardableResult
     public func subscribe(on handler: @escaping ([AnyHashable: Any]) -> ()) -> Disposable {
-        return NotificationDisposable(name: name, handler: handler)
+        let disposabale = NotificationDisposable(name: name, handler: handler)
+        subscribers.append(disposabale)
+        return disposabale
     }
     
+    @discardableResult
     public func subscribe(target: Any?, on handler: @escaping (Notification) -> ()) -> Disposable {
-        return NotificationDisposable(name: name, target: target, handler: handler)
+        let disposable = NotificationDisposable(name: name, target: target, handler: handler)
+        subscribers.append(disposable)
+        return disposable
     }
     
     public func on(_ value: [AnyHashable: Any]) {
