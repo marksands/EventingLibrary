@@ -67,7 +67,7 @@ disposeBag += event.subscribe(on: { userInfo in
 
 ## Disposable
 
-Disposables are _optional_ for `Event`s but _required_ for `Notifier`s. If your subscription is retained by a disposable, you may `dispose()` of the subscription to stop receiving events to that handler.
+Disposables are _optional_ for `Observables`s and `Notifier`s. If your subscription is retained by a disposable, you may `dispose()` of the subscription to stop receiving events to that handler.
 
 ## Observable Operators
 
