@@ -26,6 +26,7 @@
 		B17E03D12072BB5A00C6B1E7 /* Observable+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E03D02072BB5A00C6B1E7 /* Observable+Filter.swift */; };
 		B187DAAE204E319D00F1E240 /* IndefiniteSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B187DAAD204E319D00F1E240 /* IndefiniteSubscriber.swift */; };
 		B187DAB0204E31AD00F1E240 /* SingleSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B187DAAF204E31AD00F1E240 /* SingleSubscriber.swift */; };
+		B1A144E4208E8076006FEF39 /* DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A144E3208E8076006FEF39 /* DisposeBag.swift */; };
 		B1E49C9720893B33005BE45A /* ColdSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E49C9620893B33005BE45A /* ColdSubscriber.swift */; };
 		B1E49C9920899BFC005BE45A /* CleanupSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E49C9820899BFC005BE45A /* CleanupSubscriber.swift */; };
 		B1E49C9B20899D45005BE45A /* DisposableAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E49C9A20899D45005BE45A /* DisposableAction.swift */; };
@@ -65,6 +66,7 @@
 		B17E03D02072BB5A00C6B1E7 /* Observable+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Filter.swift"; sourceTree = "<group>"; };
 		B187DAAD204E319D00F1E240 /* IndefiniteSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndefiniteSubscriber.swift; sourceTree = "<group>"; };
 		B187DAAF204E31AD00F1E240 /* SingleSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSubscriber.swift; sourceTree = "<group>"; };
+		B1A144E3208E8076006FEF39 /* DisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposeBag.swift; sourceTree = "<group>"; };
 		B1E49C9620893B33005BE45A /* ColdSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColdSubscriber.swift; sourceTree = "<group>"; };
 		B1E49C9820899BFC005BE45A /* CleanupSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanupSubscriber.swift; sourceTree = "<group>"; };
 		B1E49C9A20899D45005BE45A /* DisposableAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposableAction.swift; sourceTree = "<group>"; };
@@ -115,7 +117,7 @@
 				B1507A3B2026ABC8000AD2D0 /* EventingLibrary.h */,
 				B1507A3C2026ABC8000AD2D0 /* Info.plist */,
 				B1507A582026C02F000AD2D0 /* Disposable.swift */,
-				B1E49C9A20899D45005BE45A /* DisposableAction.swift */,
+				B1A144E5208E807A006FEF39 /* Disposables */,
 				B1507A6120275ADF000AD2D0 /* Subscriber.swift */,
 				B187DAAA204E317100F1E240 /* Subscribers */,
 				B17E03C42072A3A000C6B1E7 /* Observable.swift */,
@@ -159,6 +161,15 @@
 				B1E49C9820899BFC005BE45A /* CleanupSubscriber.swift */,
 			);
 			name = Subscribers;
+			sourceTree = "<group>";
+		};
+		B1A144E5208E807A006FEF39 /* Disposables */ = {
+			isa = PBXGroup;
+			children = (
+				B1A144E3208E8076006FEF39 /* DisposeBag.swift */,
+				B1E49C9A20899D45005BE45A /* DisposableAction.swift */,
+			);
+			name = Disposables;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +296,7 @@
 				B1E49C9720893B33005BE45A /* ColdSubscriber.swift in Sources */,
 				B17E03CC2072A74700C6B1E7 /* Observable+Merge.swift in Sources */,
 				B1507A572026BE64000AD2D0 /* Notifier.swift in Sources */,
+				B1A144E4208E8076006FEF39 /* DisposeBag.swift in Sources */,
 				B187DAB0204E31AD00F1E240 /* SingleSubscriber.swift in Sources */,
 				B17E03CA2072A74100C6B1E7 /* Observable+Map.swift in Sources */,
 				B1507A6220275ADF000AD2D0 /* Subscriber.swift in Sources */,
