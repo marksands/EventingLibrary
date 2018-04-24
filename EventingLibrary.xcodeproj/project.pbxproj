@@ -27,6 +27,7 @@
 		B187DAAE204E319D00F1E240 /* IndefiniteSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B187DAAD204E319D00F1E240 /* IndefiniteSubscriber.swift */; };
 		B187DAB0204E31AD00F1E240 /* SingleSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B187DAAF204E31AD00F1E240 /* SingleSubscriber.swift */; };
 		B1A144E4208E8076006FEF39 /* DisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A144E3208E8076006FEF39 /* DisposeBag.swift */; };
+		B1A144E9208E858B006FEF39 /* Observable+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A144E8208E858B006FEF39 /* Observable+Debug.swift */; };
 		B1E49C9720893B33005BE45A /* ColdSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E49C9620893B33005BE45A /* ColdSubscriber.swift */; };
 		B1E49C9920899BFC005BE45A /* CleanupSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E49C9820899BFC005BE45A /* CleanupSubscriber.swift */; };
 		B1E49C9B20899D45005BE45A /* DisposableAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E49C9A20899D45005BE45A /* DisposableAction.swift */; };
@@ -67,6 +68,7 @@
 		B187DAAD204E319D00F1E240 /* IndefiniteSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndefiniteSubscriber.swift; sourceTree = "<group>"; };
 		B187DAAF204E31AD00F1E240 /* SingleSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSubscriber.swift; sourceTree = "<group>"; };
 		B1A144E3208E8076006FEF39 /* DisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposeBag.swift; sourceTree = "<group>"; };
+		B1A144E8208E858B006FEF39 /* Observable+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Debug.swift"; sourceTree = "<group>"; };
 		B1E49C9620893B33005BE45A /* ColdSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColdSubscriber.swift; sourceTree = "<group>"; };
 		B1E49C9820899BFC005BE45A /* CleanupSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanupSubscriber.swift; sourceTree = "<group>"; };
 		B1E49C9A20899D45005BE45A /* DisposableAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposableAction.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				B17E03D02072BB5A00C6B1E7 /* Observable+Filter.swift */,
 				B17E03C92072A74100C6B1E7 /* Observable+Map.swift */,
 				B17E03CB2072A74700C6B1E7 /* Observable+Merge.swift */,
+				B1A144E8208E858B006FEF39 /* Observable+Debug.swift */,
 			);
 			name = Observable;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 			files = (
 				B17E03D12072BB5A00C6B1E7 /* Observable+Filter.swift in Sources */,
 				B17E03C52072A3A000C6B1E7 /* Observable.swift in Sources */,
+				B1A144E9208E858B006FEF39 /* Observable+Debug.swift in Sources */,
 				B1507A532026B132000AD2D0 /* Event.swift in Sources */,
 				B187DAAE204E319D00F1E240 /* IndefiniteSubscriber.swift in Sources */,
 				B1E49C9B20899D45005BE45A /* DisposableAction.swift in Sources */,
