@@ -1,3 +1,4 @@
+.DS_Store
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -7,3 +8,4 @@
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
+Carthage/
