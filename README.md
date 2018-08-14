@@ -6,6 +6,17 @@
 
 EventingLibrary is a lightweight observable framework that makes it simple for the developer. The interface closely resembles RxSwift on purpose. If you find that you need more power, then the upgrade path to Rx should be fairly straightforward.
 
+## Install
+
+### CocoaPods
+```
+pod "marksands/EventingLibrary"
+```
+### Carthage
+```
+github "marksands/EventingLibrary"
+```
+
 ## Observable
 
 `Observable`s subscribe to streams of values.
