@@ -166,4 +166,42 @@ class EventingLibraryTests: XCTestCase {
         }
         XCTAssertEqual(3, actualValue)
     }
+    
+    func test_observablesThrottle() {
+        let observable = Event<Int>()
+
+        var throttledValue: Int?
+        let disposable = observable.throttle(0.3).subscribe {
+            throttledValue = $0
+        }
+
+        var actualValue: Int?
+        observable.subscribe {
+            actualValue = $0
+        }
+
+        observable.on(1)
+        observable.on(2)
+        observable.on(3)
+        observable.on(4)
+        observable.on(5)
+        XCTAssertEqual(1, throttledValue)
+        XCTAssertEqual(5, actualValue)
+
+        RunLoop.current.run(until: Date().addingTimeInterval(0.5))
+
+        observable.on(8)
+        observable.on(9)
+        observable.on(10)
+        XCTAssertEqual(8, throttledValue)
+        XCTAssertEqual(10, actualValue)
+        
+        disposable.dispose()
+        
+        RunLoop.current.run(until: Date().addingTimeInterval(0.3))
+
+        observable.on(11)
+        XCTAssertEqual(8, throttledValue)
+        XCTAssertEqual(11, actualValue)
+    }
 }
