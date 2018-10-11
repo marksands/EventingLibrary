@@ -6,6 +6,9 @@ final class CleanupSubscriber<T>: SubscriberBase<T> {
         super.init(handler: { _ in })
     }
 
+    override func on(_ value: T) {
+    }
+
     override func dispose() {
         super.dispose()
         disposeAction.dispose()
